@@ -22,12 +22,12 @@ module.exports = function(content) {
 
   var imagemin = new Imagemin()
     .src(content)
+    .use(Imagemin.svgo())
     .use(Imagemin.gifsicle({interlaced: options.interlaced}))
 	.use(mozjpeg())
 		//.use(Imagemin.jpegtran({progressive: options.progressive}))
-		.use(Imagemin.pngquant({ quanlity: '70-90', speed: 1}))
+		.use(Imagemin.pngquant({ quanlity: '70-90', speed: 1}));
 		//.use(Imagemin.optipng({optimizationLevel: options.optimizationLevel}))
-    .use(Imagemin.svgo());
   imagemin.run(function (err, files) {
     if ( called ) { console.log("something is very odd, it is being called twice"); return; }
     called = true;
